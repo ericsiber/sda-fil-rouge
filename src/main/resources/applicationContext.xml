@@ -39,11 +39,5 @@
         <!-- possible de rendre explicites les éléments de configuration -->
         <!-- surtout en l'absence d'unicité (ex. plusieurs contextes JPA / DataSource -->
     </bean>
-    
-    <!-- Ce transaction manager suffirait pour des DAO JDBC seuls -->
-	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
-	<!-- <property name="dataSource" ref="dataSource"/> -->
-	<!-- </bean> -->
-    
 
 </beans>

@@ -25,7 +25,6 @@ public class ClientJpaDAO {
 				.getResultList();
 	}
 
-	//@Transactional(propagation = Propagation.NEVER)
 	public void deleteByAdresseId(Long adresseId) {
 		Query query = em.createQuery("delete from Client c where c.adresse.id = :id");
 		query.setParameter("id", adresseId);

@@ -13,7 +13,6 @@ public class AdresseJdbcDAO extends AbstractJdbcDAO {
 	}
 	
 	public void deleteById(Long id) {
-		//if (true) throw new NullPointerException();
 		this.template.update("DELETE FROM ADRESSE WHERE ID = ?", id);
 	}
 }

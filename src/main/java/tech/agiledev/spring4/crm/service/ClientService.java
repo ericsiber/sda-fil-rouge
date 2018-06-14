@@ -23,7 +23,7 @@ public class ClientService {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, noRollbackFor=NullPointerException.class)
-	public void deleteClientById(Long id) {
+	public void deleteClientByAdresseId(Long id) {
 		this.clientDAO.deleteByAdresseId(id);
 		this.adresseDAO.deleteById(id);
 	}

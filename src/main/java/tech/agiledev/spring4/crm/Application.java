@@ -23,7 +23,7 @@ public class Application {
 		try {
 			LOGGER.debug("Tentative de suppression d'un client et son adresse");
 			ClientService service = context.getBean(ClientService.class);
-			service.deleteClientById(1L);
+			service.deleteClientByAdresseId(1L);
 			LOGGER.debug("Client et son adresse supprimés");
 		} catch (NullPointerException e) {
 			LOGGER.error("Problème lors de la suppression");

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tech.agiledev.spring4.crm.dao.AdresseJdbcDAO;
 import tech.agiledev.spring4.crm.dao.ClientJpaDAO;
+import tech.agiledev.spring4.crm.modele.Client;
 
 @Service
 public class ClientService {
@@ -26,5 +27,10 @@ public class ClientService {
 	public void deleteClientById(Long id) {
 		this.clientDAO.deleteByAdresseId(id);
 		this.adresseDAO.deleteById(id);
+	}
+
+	@Transactional(readOnly = true)
+	public Client findById(Long id) {
+		return clientDAO.findById(id);
 	}
 }

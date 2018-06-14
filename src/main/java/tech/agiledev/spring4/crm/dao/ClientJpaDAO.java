@@ -30,4 +30,8 @@ public class ClientJpaDAO {
 		query.setParameter("id", adresseId);
 		query.executeUpdate();
 	}
+
+	public Client findById(Long id) {
+		return em.find(Client.class, id);
+	}
 }

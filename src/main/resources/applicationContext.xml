@@ -14,8 +14,8 @@
 
 	<jdbc:embedded-database id="dataSource"
 		database-name="crm" type="H2">
-		<jdbc:script location="db/createTables.sql" />
-		<jdbc:script location="db/createData.sql" />
+		<jdbc:script location="classpath:db/createTables.sql" />
+		<jdbc:script location="classpath:db/createData.sql" />
 	</jdbc:embedded-database>
 
 	<!-- Le template est Thread-safe et peut donc être unique à travers tous 

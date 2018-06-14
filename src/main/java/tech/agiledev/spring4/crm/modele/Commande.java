@@ -3,14 +3,32 @@ package tech.agiledev.spring4.crm.modele;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "COMMANDE")
 public class Commande implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Column(name = "NOMBRE_PRODUITS")
 	private Integer nombreProduits;
+	
+	@Column(name = "MONTANT")
 	private Long montant;
+	
 	// volontairement je n'utilise pas Date & Time API
+	@Column(name = "DATE_COMMANDE")
 	private Date date;
 
 	public Long getId() {

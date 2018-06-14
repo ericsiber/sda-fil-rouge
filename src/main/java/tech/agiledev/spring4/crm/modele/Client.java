@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "CLIENT")
@@ -28,10 +30,12 @@ public class Client implements Serializable {
 	@Column(name = "NOM")
 	private String nom;
 	
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "ADRESSE_ID")
 	private Adresse adresse;
 	
-	@Transient
+	@OneToMany
+	@JoinColumn(name = "CLIENT_ID")
 	private Set<Commande> commandes;
 
 	public Long getId() {

@@ -3,6 +3,7 @@ package tech.agiledev.spring4.crm.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import tech.agiledev.spring4.crm.dao.ClientJpaDAO;
 import tech.agiledev.spring4.crm.modele.Client;
 
 @Service
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ClientService {
 
 	private ClientJpaDAO clientDAO;

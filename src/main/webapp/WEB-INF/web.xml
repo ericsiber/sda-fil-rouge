@@ -23,10 +23,25 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+		<servlet>
+		<servlet-name>restDispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:restDispatcher-applicationContext.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/spring-mvc/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>restDispatcher</servlet-name>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

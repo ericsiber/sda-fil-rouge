@@ -2,6 +2,8 @@ package tech.agiledev.spring4.crm.service;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +23,11 @@ public class ClientService {
 	public ClientService(ClientJpaDAO clientDAO, AdresseJdbcDAO adresseDAO) {
 		this.clientDAO = clientDAO;
 		this.adresseDAO = adresseDAO;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Client> findAll() {
+		return clientDAO.findAll();
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)

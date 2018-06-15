@@ -32,6 +32,10 @@ public class ClientJpaDAO {
 	}
 
 	public Client findById(Long id) {
-		return em.find(Client.class, id);
+		Client c = em.find(Client.class, id);
+		// forcage du chargement pour démo REST
+		c.getAdresse();
+		c.getCommandes().size();
+		return c;
 	}
 }

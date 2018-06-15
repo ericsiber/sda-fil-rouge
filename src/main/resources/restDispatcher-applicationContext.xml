@@ -8,6 +8,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<context:component-scan
-		base-package="tech.agiledev.spring4.crm.web.controller" />
+		base-package="tech.agiledev.spring4.crm.web.rest" />
 	<mvc:annotation-driven />
 </beans>

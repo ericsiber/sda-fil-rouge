@@ -3,6 +3,7 @@
 		<title>Affichage client</title>
 	</head>
 	<body>
+		Bonjour
 		<p>Nom : ${client.nom}</p>
 		<p>Prénom : ${client.prenom}</p>
 	</body>

@@ -1,14 +1,13 @@
 package tech.agiledev.spring4.crm.web.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.JstlView;
 
 import tech.agiledev.spring4.crm.modele.Client;
 import tech.agiledev.spring4.crm.service.ClientService;
@@ -17,21 +16,18 @@ import tech.agiledev.spring4.crm.service.ClientService;
 public class ClientController {
 
 	private ClientService clientService;
-	
+
 	@Autowired
 	public ClientController(ClientService clientService) {
 		this.clientService = clientService;
 	}
-	
-	@RequestMapping("/client")
-	public void afficherClient(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+	@RequestMapping(value = "/client", method = RequestMethod.GET)
+	public View afficherClient(HttpServletRequest req) {
 		String idStr = req.getParameter("id");
 		Client client = clientService.findById(new Long(idStr));
-		ServletOutputStream os = resp.getOutputStream();
-		os.println("<html><head><title>Affichage client</title></head><body>");
-		os.println("<p>Nom : " + client.getNom());
-		os.println("<br/><p>Prénom : " + client.getPrenom());
-		os.println("</body></html>");
+		req.setAttribute("client", client);
+		return new JstlView("/WEB-INF/pages/client.jsp");
 	}
-	
+
 }

@@ -23,11 +23,11 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/client", method = RequestMethod.GET)
-	public View afficherClient(HttpServletRequest req) {
+	public String afficherClient(HttpServletRequest req) {
 		String idStr = req.getParameter("id");
 		Client client = clientService.findById(new Long(idStr));
 		req.setAttribute("client", client);
-		return new JstlView("/WEB-INF/pages/client.jsp");
+		return "client";
 	}
 
 }

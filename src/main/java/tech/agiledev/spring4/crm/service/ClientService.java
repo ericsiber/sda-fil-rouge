@@ -2,6 +2,8 @@ package tech.agiledev.spring4.crm.service;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,11 @@ public class ClientService {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
+	public void create(Client client) {
+		this.clientDAO.create(client);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteClientById(Long id) {
 		this.clientDAO.deleteByAdresseId(id);
 		this.adresseDAO.deleteById(id);
@@ -32,5 +39,10 @@ public class ClientService {
 	@Transactional(readOnly = true)
 	public Client findById(Long id) {
 		return clientDAO.findById(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Client> findAll() {
+		return clientDAO.findAll();
 	}
 }

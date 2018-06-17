@@ -21,7 +21,7 @@ public class ClientJpaDAO {
 	}
 
 	public List<Client> findAll() {
-		return em.createQuery("select c from Client c join fetch c.adresse a join fetch c.commandes", Client.class)
+		return em.createQuery("select c from Client c left join fetch c.adresse a left join fetch c.commandes", Client.class)
 				.getResultList();
 	}
 
@@ -33,5 +33,9 @@ public class ClientJpaDAO {
 
 	public Client findById(Long id) {
 		return em.find(Client.class, id);
+	}
+	
+	public void create(Client client) {
+		em.persist(client);
 	}
 }

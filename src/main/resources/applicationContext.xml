@@ -50,6 +50,7 @@
 			access="hasRole('ROLE_ADMIN')" />
 		<sec:intercept-url pattern="/spring-mvc/**"
 			access="permitAll" />
+		<sec:logout />
 	</sec:http>
 
 	<sec:authentication-manager>

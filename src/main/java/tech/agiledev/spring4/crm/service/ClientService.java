@@ -35,6 +35,11 @@ public class ClientService {
 		this.clientDAO.deleteByAdresseId(id);
 		this.adresseDAO.deleteById(id);
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void createClient(Client c) {
+		this.clientDAO.create(c);
+	}
 
 	@Transactional(readOnly = true)
 	public Client findById(Long id) {

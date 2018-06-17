@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import tech.agiledev.spring4.crm.dao.ClientJdbcDAO;
 import tech.agiledev.spring4.crm.dao.ClientJpaDAO;
 import tech.agiledev.spring4.crm.modele.Client;
 import tech.agiledev.spring4.crm.service.ClientService;
@@ -17,6 +18,13 @@ public class Application {
 	public static void main(String[] args) {
 		LOGGER.debug("Startup");
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+		ClientJdbcDAO dao = context.getBean(ClientJdbcDAO.class);
+		for (int i=0 ; i< 10 ; i++) {
+			// seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
+			dao.findAll();
+		}
+		
 		
 		afficherClients(context);
 		

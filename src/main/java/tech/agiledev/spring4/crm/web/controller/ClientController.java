@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tech.agiledev.spring4.crm.modele.Client;
 import tech.agiledev.spring4.crm.service.ClientService;
@@ -23,9 +22,8 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/client", method = RequestMethod.GET)
-	public String afficherClient(HttpServletRequest req) {
-		String idStr = req.getParameter("id");
-		Client client = clientService.findById(new Long(idStr));
+	public String afficherClient(@RequestParam("id") Long idClient, HttpServletRequest req) {
+		Client client = clientService.findById(idClient);
 		req.setAttribute("client", client);
 		return "client";
 	}

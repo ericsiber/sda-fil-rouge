@@ -3,8 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:sec="http://www.springframework.org/schema/security"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
@@ -25,19 +27,40 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceProvider">
 			<bean class="org.hibernate.jpa.HibernatePersistenceProvider" />
 		</property>
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
 	<!-- Ce transaction manager permet de combiner DAO JPA et JDBC -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <!-- possible de rendre explicites les éléments de configuration -->
-        <!-- surtout en l'absence d'unicité (ex. plusieurs contextes JPA / DataSource -->
-    </bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<!-- possible de rendre explicites les éléments de configuration -->
+		<!-- surtout en l'absence d'unicité (ex. plusieurs contextes JPA / DataSource -->
+	</bean>
+
+	<sec:http auto-config="true">
+		<sec:intercept-url pattern="/spring-mvc/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/spring-mvc/**"
+			access="permitAll" />
+	</sec:http>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="eric" password="password"
+					authorities="ROLE_USER,ROLE_ADMIN" />
+				<sec:user name="clement" password="password"
+					authorities="ROLE_USER" />
+			</sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
 
 </beans>

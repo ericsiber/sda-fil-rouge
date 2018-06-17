@@ -38,16 +38,16 @@ public class ClientController {
 		return "listeClients";
 	}
 
-	@RequestMapping(value = "/ajouterClient", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/ajouterClient", method = RequestMethod.GET)
 	public String preparerAffichageAjoutClient(Model model) {
 		model.addAttribute("client", new Client());
 		return "creerClient";
 	}
 	
-	@RequestMapping(value = "/creerClient", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/creerClient", method = RequestMethod.POST)
 	public String creerClient(@ModelAttribute("client") Client client) {
 		clientService.create(client);
-		return "redirect:clients";
+		return "redirect:../clients";
 	}
 
 }

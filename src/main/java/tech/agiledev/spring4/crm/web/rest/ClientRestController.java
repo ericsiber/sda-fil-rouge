@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import tech.agiledev.spring4.crm.jmx.OperationCounter;
 import tech.agiledev.spring4.crm.modele.Client;
 import tech.agiledev.spring4.crm.service.ClientService;
 
@@ -21,10 +22,17 @@ import tech.agiledev.spring4.crm.service.ClientService;
 public class ClientRestController {
 
 	private ClientService clientService;
+	
+	private OperationCounter operationCounter;
 
 	@Autowired
 	public ClientRestController(ClientService clientService) {
 		this.clientService = clientService;
+	}
+	
+	@Autowired(required = false)
+	public void setOperationCounter(OperationCounter operationCounter) {
+		this.operationCounter = operationCounter;
 	}
 
 	@RequestMapping(value = "/clients")
@@ -46,6 +54,9 @@ public class ClientRestController {
 	@DeleteMapping(value = "/clients/{clientId}")
 	public HttpStatus removeClient(@PathVariable("clientId") Long id) {
 		clientService.deleteClientById(id);
+		if (operationCounter != null) {
+			operationCounter.incrementDelete();
+		}
 		return HttpStatus.OK;
 	}
 
@@ -54,6 +65,9 @@ public class ClientRestController {
 		clientService.createClient(client);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(client.getId())
 				.toUri();
+		if (operationCounter != null) {
+			operationCounter.incrementAdd();
+		}
 		return ResponseEntity.created(location).build();
 	}
 

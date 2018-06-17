@@ -10,4 +10,5 @@
 	<context:component-scan
 		base-package="tech.agiledev.spring4.crm.web.controller" />
 	<mvc:annotation-driven />
+
 </beans>

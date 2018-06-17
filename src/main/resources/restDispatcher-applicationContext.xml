@@ -10,4 +10,27 @@
 	<context:component-scan
 		base-package="tech.agiledev.spring4.crm.web.rest" />
 	<mvc:annotation-driven />
+
+	<!-- this bean must not be lazily initialized if the exporting is to happen -->
+	<bean id="exporter"
+		class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+		<property name="beans">
+			<map>
+				<entry key="bean:name=clientRestEndpoint"
+					value-ref="counterBean" />
+			</map>
+		</property>
+		<property name="assembler" ref="assembler" />
+	</bean>
+
+	<bean id="jmxAttributeSource"
+		class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource" />
+
+	<bean id="assembler"
+		class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+		<property name="attributeSource" ref="jmxAttributeSource" />
+	</bean>
+
+	<bean id="counterBean"
+		class="tech.agiledev.spring4.crm.jmx.OperationCounter" />
 </beans>
